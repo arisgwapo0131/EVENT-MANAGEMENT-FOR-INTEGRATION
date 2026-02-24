@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System - Faculty Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">EMS</div>
+                    <div>
+                        <div class="logo-title">Event Management</div>
+                        <div class="logo-subtitle">Faculty Portal</div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="create-event">
+                    <span class="nav-icon">➕</span>
+                    <span>Create Event</span>
+                </a>
+                <a href="#" class="nav-item" data-section="event-details">
+                    <span class="nav-icon">📋</span>
+                    <span>Event Details</span>
+                </a>
+                <a href="#" class="nav-item" data-section="calendar">
+                    <span class="nav-icon">📆</span>
+                    <span>Calendar</span>
+                </a>
+                <a href="#" class="nav-item" data-section="volunteers">
+                    <span class="nav-icon">👥</span>
+                    <span>Volunteer Tasks</span>
+                </a>
+                <a href="#" class="nav-item" data-section="resources">
+                    <span class="nav-icon">📦</span>
+                    <span>Resources & Equipment</span>
+                </a>
+                <a href="#" class="nav-item" data-section="venue">
+                    <span class="nav-icon">🏢</span>
+                    <span>Venue Reservation</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <div class="admin-icon">👨‍🏫</div>
+                    <div>
+                        <div class="admin-label">Faculty Member</div>
+                        <div class="admin-role">Event Organizer</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="section-header">
+                    <h1>Faculty Dashboard</h1>
+                    <p>Overview of your events and activities</p>
+                </div>
+                <div class="dashboard-grid" id="dashboardCards">
+                    <div class="dashboard-card">
+                        <div class="card-icon">📅</div>
+                        <div class="card-content">
+                            <div class="card-value" id="totalEvents">0</div>
+                            <div class="card-label">Total Events</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">✅</div>
+                        <div class="card-content">
+                            <div class="card-value" id="approvedEvents">0</div>
+                            <div class="card-label">Approved Events</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">⏳</div>
+                        <div class="card-content">
+                            <div class="card-value" id="pendingEvents">0</div>
+                            <div class="card-label">Pending Approval</div>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <div class="card-icon">👥</div>
+                        <div class="card-content">
+                            <div class="card-value" id="volunteerCount">0</div>
+                            <div class="card-label">Assigned Volunteers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3 style="margin-bottom: 20px; font-size: 16px; font-weight: 700; color: var(--text-dark);">Recent Events</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Event Name</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Budget</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentEventsBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Create Event Section -->
+            <section id="create-event" class="section">
+                <div class="section-header">
+                    <h1>Create New Event</h1>
+                    <p>Fill in the event details to create a new event</p>
+                </div>
+
+                <div class="form-container">
+                    <form id="eventForm">
+                        <h3 style="margin-bottom: 24px; font-size: 16px; font-weight: 700; color: var(--text-dark);">Event Information</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventName">Event Name *</label>
+                                <input type="text" id="eventName" required placeholder="Enter event name">
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Date *</label>
+                                <input type="date" id="eventDate" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventTime">Time *</label>
+                                <input type="time" id="eventTime" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventLocation">Venue/Location *</label>
+                                <input type="text" id="eventLocation" required placeholder="Enter venue location">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventDescription">Description *</label>
+                            <textarea id="eventDescription" required placeholder="Enter event description" rows="4"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventBudget">Budget Amount (₱) *</label>
+                            <input type="number" id="eventBudget" required placeholder="Enter budget" min="0" step="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventParticipants">Expected Participants *</label>
+                            <input type="number" id="eventParticipants" required placeholder="Enter expected number" min="1">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Create Event</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Event Details Section -->
+            <section id="event-details" class="section">
+                <div class="section-header">
+                    <h1>Event Details & Management</h1>
+                    <p>View and edit details of your events</p>
+                </div>
+
+                <div class="form-container">
+                    <h3 style="margin-bottom: 20px;">Select Event</h3>
+                    <select id="eventDetailsSelect" onchange="loadEventDetails()">
+                        <option value="">-- Select an event --</option>
+                    </select>
+                </div>
+
+                <div id="eventDetailsContent" style="display: none;" class="form-container">
+                    <h3 id="detailsEventName" style="margin-bottom: 20px; font-size: 18px; font-weight: 700;"></h3>
+                    
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <label>Date</label>
+                            <p id="detailDate"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Time</label>
+                            <p id="detailTime"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Location</label>
+                            <p id="detailLocation"></p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <p id="detailStatus"></p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <label>Description</label>
+                        <p id="detailDescription" style="background: var(--bg-light); padding: 12px; border-radius: 6px;"></p>
+                    </div>
+
+                    <div class="form-row" style="margin-top: 20px;">
+                        <div class="detail-item">
+                            <label>Budget</label>
+                            <p id="detailBudget" style="font-weight: 700; color: var(--primary-blue);">₱0</p>
+                        </div>
+                        <div class="detail-item">
+                            <label>Expected Participants</label>
+                            <p id="detailParticipants"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section id="calendar" class="section">
+                <div class="section-header">
+                    <h1>Calendar of Activities</h1>
+                    <p>View all your scheduled events in calendar format</p>
+                </div>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prevMonth" class="btn-nav">&lt;</button>
+                        <h2 id="monthYear"></h2>
+                        <button id="nextMonth" class="btn-nav">&gt;</button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-weekday">Sun</div>
+                        <div class="calendar-weekday">Mon</div>
+                        <div class="calendar-weekday">Tue</div>
+                        <div class="calendar-weekday">Wed</div>
+                        <div class="calendar-weekday">Thu</div>
+                        <div class="calendar-weekday">Fri</div>
+                        <div class="calendar-weekday">Sat</div>
+                        <div id="calendarDays" class="calendar-days"></div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h2>Scheduled Activities</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Volunteers Section -->
+            <section id="volunteers" class="section">
+                <div class="section-header">
+                    <h1>Volunteer Task Assignment</h1>
+                    <p>Assign and manage volunteer tasks for your events</p>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="volunteer-list">Assigned Volunteers</button>
+                        <button class="tab-btn" data-tab="assign-volunteer">Assign Volunteer</button>
+                    </div>
+
+                    <!-- Volunteer List Tab -->
+                    <div id="volunteer-list" class="tab-content active">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Event</th>
+                                        <th>Task</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="volunteersTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Assign Volunteer Tab -->
+                    <div id="assign-volunteer" class="tab-content">
+                        <div class="form-container">
+                            <form id="volunteerForm">
+                                <h3 style="margin-bottom: 24px; font-size: 16px; font-weight: 700; color: var(--text-dark);">Assign Volunteer Task</h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="volunteerName">Volunteer Name *</label>
+                                        <input type="text" id="volunteerName" required placeholder="Enter volunteer name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="volunteerEmail">Email *</label>
+                                        <input type="email" id="volunteerEmail" required placeholder="Enter email">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="volunteerEvent">Event *</label>
+                                        <select id="volunteerEvent" required>
+                                            <option value="">Select event</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="volunteerTask">Task *</label>
+                                        <input type="text" id="volunteerTask" required placeholder="Enter task assignment">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Assign Volunteer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resources & Equipment Section -->
+            <section id="resources" class="section">
+                <div class="section-header">
+                    <h1>Resources & Equipment</h1>
+                    <p>Manage equipment and resources for your events</p>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="resource-list">Resource List</button>
+                        <button class="tab-btn" data-tab="add-resource">Add Resource</button>
+                    </div>
+
+                    <!-- Resource List Tab -->
+                    <div id="resource-list" class="tab-content active">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Resource Name</th>
+                                        <th>Type</th>
+                                        <th>Quantity</th>
+                                        <th>Event</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resourcesTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Add Resource Tab -->
+                    <div id="add-resource" class="tab-content">
+                        <div class="form-container">
+                            <form id="resourceForm">
+                                <h3 style="margin-bottom: 24px; font-size: 16px; font-weight: 700; color: var(--text-dark);">Add Resource/Equipment</h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="resourceName">Resource Name *</label>
+                                        <input type="text" id="resourceName" required placeholder="Enter resource name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resourceType">Type *</label>
+                                        <select id="resourceType" required>
+                                            <option value="">Select type</option>
+                                            <option value="Equipment">Equipment</option>
+                                            <option value="Supplies">Supplies</option>
+                                            <option value="Materials">Materials</option>
+                                            <option value="Furniture">Furniture</option>
+                                            <option value="Decoration">Decoration</option>
+                                            <option value="Technology">Technology</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="resourceQty">Quantity *</label>
+                                        <input type="number" id="resourceQty" required placeholder="Enter quantity" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resourceEvent">Event *</label>
+                                        <select id="resourceEvent" required>
+                                            <option value="">Select event</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Add Resource</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Venue Reservation Section -->
+            <section id="venue" class="section">
+                <div class="section-header">
+                    <h1>Venue Reservation</h1>
+                    <p>Manage venue reservations for your events</p>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="venue-list">Venue Reservations</button>
+                        <button class="tab-btn" data-tab="reserve-venue">Reserve Venue</button>
+                    </div>
+
+                    <!-- Venue List Tab -->
+                    <div id="venue-list" class="tab-content active">
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Venue Name</th>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Capacity</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="venueTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Reserve Venue Tab -->
+                    <div id="reserve-venue" class="tab-content">
+                        <div class="form-container">
+                            <form id="venueForm">
+                                <h3 style="margin-bottom: 24px; font-size: 16px; font-weight: 700; color: var(--text-dark);">Reserve Venue</h3>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="venueName">Venue Name *</label>
+                                        <input type="text" id="venueName" required placeholder="Enter venue name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="venueEvent">Event *</label>
+                                        <select id="venueEvent" required>
+                                            <option value="">Select event</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="venueDate">Date *</label>
+                                        <input type="date" id="venueDate" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="venueTime">Time *</label>
+                                        <input type="time" id="venueTime" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="venueCapacity">Capacity *</label>
+                                        <input type="number" id="venueCapacity" required placeholder="Enter capacity" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="venueNotes">Special Notes</label>
+                                        <input type="text" id="venueNotes" placeholder="Enter any special requirements">
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Reserve Venue</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
